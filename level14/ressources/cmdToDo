@@ -20,7 +20,7 @@ let's try what we said.
 -- disass main
 // first break to counter the call to ptrace
 -- b *0x0804898e
-// the value of eax here need to 0 or positive to trigger the jns instruction
+// the value of eax here need to be 0 or positive to trigger the jns instruction
 -- set $eax=0
 // second break after getuid 
 -- b *0x08048b02

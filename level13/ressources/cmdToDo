@@ -8,10 +8,8 @@ The executable use the getuid funtion and we see it return 2013.
 A simple way is to reverse this.
 
 - gdb ./level13
-( explain quickly debugger )
 - b main
-- layout asm
-- b getuid
+- layout asm ( or disass main )
 ( check address of return instruction and break to this )
 - b *0xXXXXXX
 ( check value eax )
@@ -21,6 +19,4 @@ and we can just change the value by 4242
 - set $eax=4242
 - and we continue to the end of the executable
 
-( instead of going in the getuid function we could have put a breakpoint on the cmp instruction and change de value of eax. the result would have been the same but it require less interaction with the debugger )
-
-2A31L79asukciNyi8uppkEuSx
+Our flag should be printed

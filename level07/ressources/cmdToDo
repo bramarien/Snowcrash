@@ -1,12 +1,11 @@
 We have an executable who return our username with the Suid enabled.
-if we cat the executable we can see a lot of craps except for one line where it is wrote
-LOGNAME/bin/echo
+if we use ltrace on the executable we can see it use getenv("LOGNAME") followed by a call to system which use the return of getenv.
 
 Let's try to edit the LOGNAME env variable to see if the executable use this Var
 
 LOGNAME="test"
 
-The exec should return test. Next thing we know, it's possibld to insert a cmd to the executable using the env like this:
+The exec should return test. Next thing we know, it's possible to insert a cmd to the executable using the env like this:
  LOGNAME=";whoami"
 
 Because the executable use echo he interprete the variable and use it like this 
@@ -16,6 +15,3 @@ In shell ; is used to executable a different command next to another.
 Let's try to run it with getflag this time
 
 LOGNAME=";getflag"
-
-
-token -> fiumuikeil55xe9cu4dood66h

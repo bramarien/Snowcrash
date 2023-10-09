@@ -47,11 +47,8 @@ If we try again the file /tmp/f12 is created but it didnt returned our token. Pe
 We know that this script is running under apache2 let's check if a curl request could work ( cat apache2 config file to see the line where the Suid is enabled )
 
 So now let's try the same input but in a http request.
-- curl '127.0.0.1:4646?x="/*/INJECT"'
+- curl '127.0.0.1:4646?x=`/*/INJECT`'
 ( note that we use curl 'IP' instead of curl IP because we need to stop the shell from converting our backticks in the string before the script use it.
 
 cat /tmp/f12 and there should be our token.
-
-
-level13 -> g1qKMiRpXf53AWhDaU7FEkczr
 

@@ -8,10 +8,10 @@ In function x() there is a call to replace with '/e'
 
 Now we just have to make a call with system or exec function with a good syntax to be able to bypass the regex and allow replace to call our own function.
 
-The regex is "/(\[x (.*)\)/e" it means our string we have to contain [x ] to be used by the regex. Then we can try [x system(whoami)] to see if it work
+The regex is "/(\[x (.*)\)/e" it means our string have to contain [x ] to be used by the regex. Then we can try [x system(whoami)] to see if it work
 
 The script return system(whoami). Well it didnt work
-The problem here is because we need to evaluate our call to system will the function is reading it.
+The problem here is because we need to evaluate our call to system while the function is reading it.
 
 we can try using variable evaluation : [x ${system(whoami)}}]
 this time the script return an error and said he failed evaluating our code.
@@ -23,5 +23,3 @@ the difference here is we evaluate the return of the system function instead of 
 Let's finally try with: [x {${system(whoami)}}]
 
 Between some warning the script should have return flag06 which means we should be allowed to run getflag:  [x {${system(getflag)}}]
-
-Token : wiok45aaoguiboiki2tuin6ub

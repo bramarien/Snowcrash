@@ -24,4 +24,3 @@ echo 'getflag > /tmp/pass' > /opt/openarenaserver/flag.sh
 
 wait a bit and in /tmp/pass it should have the token
 
-viuaaale9huek52boumoomioc

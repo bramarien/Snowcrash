@@ -4,8 +4,7 @@ So with nm cmd we can see all symbols from this executable ( or use ltrace to se
 -> nm ./level08 token
 -> ltrace ./level08 token
 
-In the main function, the file is open and being read.
-Then the string agrument pass to level08 is compared to the string "token".
+In the main function, the file name is being compared to "token" with strstr()
 if the name is different from token the file will be printed. Otherwise it print "You may not access"
 So if we managed to call the executable with token file as an argument with an other name it should work and print what is inside.
 
@@ -22,5 +21,3 @@ and we get quif5eloekouj29ke0vouxean which is the password for user flag08
 quif5eloekouj29ke0vouxean
 
 - getflag
-
-flag -> 25749xKZ8L7DkSCwJkT9dyv6f
