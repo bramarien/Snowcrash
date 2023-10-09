@@ -1,0 +1,37 @@
+The token file can only be read by flag10.
+level10 executable as Suid set and its owner is flag10.
+let's analyze what the executable do
+
+when we try to use the executable with a file that we can read it show use that it try to connect on an given IP under 6969 port.
+
+Let's try to listen on this port and send 127.0.0.1 as ip to the executable
+
+On reception it print the content of the file.
+
+let's check what is inside the executable to seek for a potential exploit.
+-- ltrace ./level10 /tmp/test 127.0.0.1
+
+We can see the program use access to check if we have the priviliege to read this file.
+Then it open and read the file befor printing it to the listener.
+
+We can use the exploit TOCTTOU ( time of check to time of update )
+
+
+Let's copy our c program to help us in this task.
+-- scp -P 4242 TOCTTOU.c level10@192.168.1.57:/tmp
+
+
+Compile it, listen to multiple connection on 6969 port
+( Ignore some caractere to make it more readable )
+-- cd /tmp ; gcc TOCTTOU.c
+-- nc -lk 6969 | grep -v ".*( )*."
+ 
+and then execute our programm
+
+The flag should appear on the listener
+
+
+
+flag10 -> woupa2yuojeeaaed06riuj63c
+
+level11 -> feulo4b72j7edeahuete3no7c

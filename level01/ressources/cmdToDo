@@ -1,0 +1,17 @@
+// Check if there is any info about flag01
+find /home /opt /etc /bin -readable -exec grep -l "flag01" 2>/dev/null {} +
+
+// /etc/passwd seems to have something
+cat /etc/passwd
+
+// Open a VM under Kali_linux to have tools like john
+
+// flag01 seems Hashed so lets try john on it.
+john xxx --show
+
+// we found abcdef
+su flag01
+-> abcdef
+
+// we can now launch getflag
+

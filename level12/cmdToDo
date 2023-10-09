@@ -1,0 +1,57 @@
+There is a perl CGI script.
+let's analyze it
+
+The script start with the n(t(x,y))
+the script take 2 arguments x and y and apply the sub t as parameter of sub n
+
+inside the sub t:
+- store y param in $nn
+- store x param in $xx
+- take the x string and convert all caracter from lower to upper case
+- again take the x string and use subsition operator. the regex mean it match the first whitespace with everything after and erase it with the sub operator
+-it execute the command egrep to seek for our x string in the file /tmp/xd and redirect everything to standard ouput
+- and for each line it split our string at : separator and check if the pattern store in y match the string return by the split function.
+- return 1 if it match.
+
+We can identify a vulnerability at the egrep line.
+because the command take our own input to use it in the command
+So we can do some command injection. The problem is we cant simply input getflag or any command because it will convert everything with the tr and s operator.
+
+Like this:
+--> getflag > /tmp/ok
+will return after the tr operator
+- GETFLAG > /TMP/OK
+and after the s operator
+- GETFLAG
+
+We still have a way to counter this.
+If we input our command in a file and make the egrep command read our file with the path it can then execute our command
+But again the regex will broke our path in the string.
+example :  x="/tmp/inject"
+will translate to /TMP/INJECT
+
+First thing to do is put our command in a file with a name in caps.
+Then we can use the wildcard to access the file without using any caracter in the path like this.
+- "/*/INJECT"
+
+Let's apply what we said.
+
+- echo "getflag > /tmp/f12" > /tmp/INJECT
+(dont forget to use backtick for the path to be evaluate)
+
+- ./level12 x="`/*/INJECT`"
+( it should print a permission denied wich is good because it show us that it atleast want to read it)
+- chmod 777 /tmp/INJECT
+
+If we try again the file /tmp/f12 is created but it didnt returned our token. Perl has a protection against code injection and dont apply the Suid to the script even if it is enabled.
+We know that this script is running under apache2 let's check if a curl request could work ( cat apache2 config file to see the line where the Suid is enabled )
+
+So now let's try the same input but in a http request.
+- curl '127.0.0.1:4646?x="/*/INJECT"'
+( note that we use curl 'IP' instead of curl IP because we need to stop the shell from converting our backticks in the string before the script use it.
+
+cat /tmp/f12 and there should be our token.
+
+
+level13 -> g1qKMiRpXf53AWhDaU7FEkczr
+

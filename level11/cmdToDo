@@ -1,0 +1,19 @@
+The Lua script can be open let's read what's inside.
+Again the Suid is set under flag11
+it create a server under 5151 port
+Request a password who get hashed and tested to check if we have the good PW
+
+The hash function use io.popen which execute command in a subprocess
+Here the command use echo with our argument.
+
+Let's just do some code injection and use getflag to be able to execute it under flag11 priviliege.
+
+First we connect to the server
+-- nc 127.0.0.1 5151
+and then we prompt our command
+-- $(getflag) > /tmp/flg
+-- cat /tmp/flg
+
+And there is our token.
+
+level12 -> fa6v5ateaw21peobuub8ipe6s

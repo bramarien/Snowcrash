@@ -1,0 +1,30 @@
+Here we have again a token file and an executable.
+The token file is readable and it seems encrypted.
+
+The executable seems to take a string in input and print it encrypted
+we can do some test with it like 
+-./level09 1234
+-./level09 test
+-./level09 cooooool
+-./level09 00000000
+
+The encryption seems to add the value of the index to the caracter at the same index
+we can try to reverse it with a short c program.
+take a look at exploit.c
+
+-scp -P 4242 level09/exploit.c level09@192.168.1.57:/tmp
+
+Let's compile it and use it with the token file
+
+-cd /tmp
+-gcc exploit.c
+-./a.out `cat /home/user/level09/token`
+
+and it return the token decrypted by our function.
+
+-su flag09
+-f3iji1ju5yuevaus41q1afiuq
+
+
+-getflag
+s5cAJpM8ev6XHw998pRWG728z

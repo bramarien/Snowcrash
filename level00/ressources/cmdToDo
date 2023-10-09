@@ -1,0 +1,16 @@
+We check if there is anything from flag00 with find cmd
+-- find / -user flag00 2>&1 | grep -v "Permission denied" 
+
+On remarque un fichier qui semble etre le retour d'une utilisation de john ( logiciel pour cracker des mots de passe )
+
+It seems like an output of john, a tool to crack password.
+The output seems to be encrypt, after some research it seems like an data shift cipher.
+With a website we can easily find out the answer 
+-- cat /usr/sbin/john
+-> cdiiddwpgswtgt
+
+With dcode.fr we find out the answer is nottoohardhere
+let's try it as password for flag00
+-- su flag 00
+
+It works now we can execute getflag

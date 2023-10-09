@@ -1,0 +1,15 @@
+// 
+Inspect ./level03
+
+We can see a call to echo
+Check permissions on file
+the file is executed as flag03
+
+Let's redirect the echo command and launch getflag
+
+create a tmp file named echo in /tmp
+Add path to PATH variable
+Add execute permission to file
+then launch ./level03
+
+//

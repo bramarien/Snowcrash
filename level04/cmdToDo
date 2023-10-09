@@ -1,0 +1,15 @@
+We can see there is a CGI script running and on the script the suid is set and it's making a call to echo.
+
+Linux automatically block script with setuid to prevent hack.
+With some parameters the server can still run the script as flag04. We can check if their is these config in server files.
+We use ps -ef to check what is running and we can see an apache2 server is running so lets go in thes file ( located at /etc/apache2 )
+
+in sites-enabled we have a list of active server, let's cat level05.conf
+Suexec is declared which mean that the server is able to use script as flag04 even if the call is made from level04.
+
+So let's try :)
+
+curl 'localhost:4747/level04.pl?x=$(whoami)'
+
+It should return flag04. It means we can launch getflag and it should return our code
+

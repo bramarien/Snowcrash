@@ -1,0 +1,12 @@
+// Copy cpap file to the linux VM
+scp -P 4242 level02@192.168.1.37:/home/user/level02/level02.pcap XXXXXXXX
+
+// Open shark and inspect the file.
+
+// Look to package 45 to 85 ( package 43 ask for password and 91 refuse it.)
+
+// explain 7f and 0d
+
+su flag02 -> ft_waNDReL0L
+
+// We can now launch getflag
